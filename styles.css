@@ -1,0 +1,49 @@
+form { 
+    visibility: hidden;
+    position: absolute;
+    left: 25%;
+    width: 50%;
+    height: auto;
+    z-index: 1000;
+    background-color: rgba(128, 128, 128, 0.321);
+    border-radius: 20px;
+}
+
+form ul {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    padding: 15px;
+}
+form li {
+    place-items: center;
+    list-style: none;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding: 20px;
+    border-radius: 20px;
+    background-color: white;
+}
+form li label {
+    align-self: center;
+    font-weight: bold;
+}
+form li input {
+    place-self: center;
+}
+
+fieldset {
+    grid-column: 1 / 3;
+    font-weight: bold;
+}
+fieldset ul {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding: 0;
+}
+fieldset li {
+    padding: 0;
+}
+fieldset li label {
+    font-weight: normal;
+}
