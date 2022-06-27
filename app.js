@@ -32,7 +32,7 @@ function printLibrary() {
         <p class="card-text">Author: ${myLibrary[i].author}</p>
         <p class="card-text"># Pages: ${myLibrary[i].pages}</p>
         <p class="card-text">Read: ${myLibrary[i].read}</p>
-        <a href="#" class="btn btn-warning delete">Delete</a>
+        <a href="#" class="btn btn-warning delete" data-index="${i}">Delete</a>
       </div>
     </div>
     </div>`
@@ -42,11 +42,7 @@ function printLibrary() {
 }
 // remove instance from myLibrary array
 function deleteBookFromLibrary(erase) {
-  for (let i = 0; i < myLibrary.length; i++) {
-    if (erase === "delete") {
-      myLibrary.splice(i, 1);
-    }
-  }
+  myLibrary.splice(erase, 1);
 }
 // When submit is clicked, prevent default of submit and run functions
 const submit = document.getElementById("submit");
@@ -58,7 +54,7 @@ submit.addEventListener("click", function(event) {
 // When delete is clicked, run functions
 const remove = document.getElementById("libraryShelf");
 remove.addEventListener("click", function(event) {
-  const erase = event.target.textContent.toLowerCase();
+  const erase = event.target.dataset.index;
   deleteBookFromLibrary(erase);
   printLibrary();
 })
