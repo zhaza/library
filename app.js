@@ -1,14 +1,14 @@
 // set storage
 let myLibrary = [];
 
-// book function
+// create book objects holding info per book
 function Book(author, title, pages, read) {
   this.author = author;
   this.title = title;
   this.pages = pages;
   this.read = read;
 }
-
+// Store info from form into an object, then push new book to library
 function addBookToLibrary() {
   const author = document.getElementById("author").value;
   const title = document.getElementById("title").value;
@@ -17,12 +17,13 @@ function addBookToLibrary() {
   const add = new Book(author, title, pages, read);
   myLibrary.push(add);
 }
-
+// erase "shelf" and populate by looping of latest library info
 function printLibrary() {
+  const container = document.getElementById("libraryShelf");
+  container.innerHTML = "";
   for (let i = 0; i < myLibrary.length; i++) {
-    const container = document.getElementById("libraryShelf");
     let card = document.createElement('div');
-    card.id = myLibrary[i].title;
+    card.id = i;
     card.innerHTML = `
     <div>
     <div class="card">
@@ -31,7 +32,7 @@ function printLibrary() {
         <p class="card-text">Author: ${myLibrary[i].author}</p>
         <p class="card-text"># Pages: ${myLibrary[i].pages}</p>
         <p class="card-text">Read: ${myLibrary[i].read}</p>
-        <a href="#" class="btn btn-warning">Delete</a>
+        <a href="#" class="btn btn-warning delete">Delete</a>
       </div>
     </div>
     </div>`
@@ -39,10 +40,25 @@ function printLibrary() {
     container.appendChild(card);
   }
 }
-
-const form = document.getElementById("bookForm");
-form.addEventListener("submit", function(event) {
+// remove instance from myLibrary array
+function deleteBookFromLibrary(erase) {
+  for (let i = 0; i < myLibrary.length; i++) {
+    if (erase === "delete") {
+      myLibrary.splice(i, 1);
+    }
+  }
+}
+// When submit is clicked, prevent default of submit and run functions
+const submit = document.getElementById("submit");
+submit.addEventListener("click", function(event) {
+  event.preventDefault();
   addBookToLibrary();
   printLibrary();
-  event.preventDefault;
-});
+})
+// When delete is clicked, run functions
+const remove = document.getElementById("libraryShelf");
+remove.addEventListener("click", function(event) {
+  const erase = event.target.textContent.toLowerCase();
+  deleteBookFromLibrary(erase);
+  printLibrary();
+})
